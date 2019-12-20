@@ -10,18 +10,22 @@ def read_cookie():
         return c
 
 
-def get_mass_data(cookie):
-    data = get_data(1, cookie)
+def get_mass_data():
+    data = get_data(1)
+    logging.debug(data)
     for i, elem in enumerate(data):
         data[i] = int(elem)
         logging.debug(f'Mass data: {elem}')
     return data
 
 
-def get_data(day, cookie):
+def get_data(day, s='\n'):
+    cookie = read_cookie()
     response = requests.get(f'https://adventofcode.com/2019/day/{day}/input', headers={'Cookie': f'session={cookie}'})
     logging.debug(f'Response data: {response.content}')
-    return response.content.decode().splitlines(keepends=False)
+    # return response.content.decode().splitlines(keepends=False)
+    data = response.content.decode().split(sep=s)
+    return [x for x in data if x]
 
 
 def calculate_fuel_for_mass(masses: List[int]):
@@ -42,7 +46,6 @@ def fuel(x):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
-    cookie = read_cookie()
-    masses = get_mass_data(cookie)
+    masses = get_mass_data()
     total_fuel = calculate_fuel_for_mass(masses)
     logging.info(f'Fuel Required for input Mass: {total_fuel}')
