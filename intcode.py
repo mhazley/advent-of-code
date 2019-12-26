@@ -15,6 +15,7 @@ ops = {
     OPERAND_MUL: lambda x, y: x * y
 }
 
+
 def get_intcode_data():
     data = get_data(2, ',')
     for i, elem in enumerate(data):
