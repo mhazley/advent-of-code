@@ -3,6 +3,7 @@ import unittest
 from fuel import calculate_fuel_for_mass
 from intcode import run_intcode
 from wires import day_three
+from password import test_password
 
 
 class TestFuel(unittest.TestCase):
@@ -39,6 +40,26 @@ class TestFuel(unittest.TestCase):
         dist, steps = day_three(data)
         self.assertEqual(dist, 135)
         self.assertEqual(steps, 410)
+
+    def test_password_one(self):
+        password = 112233
+        res = test_password(password)
+        self.assertEqual(res, True)
+
+    def test_password_two(self):
+        password = 123444
+        res = test_password(password)
+        self.assertEqual(res, False)
+
+    def test_password_three(self):
+        password = 111122
+        res = test_password(password)
+        self.assertEqual(res, True)
+
+    def test_password_four(self):
+        password = 112222
+        res = test_password(password)
+        self.assertEqual(res, True)
 
 if __name__ == '__main__':
     unittest.main()
